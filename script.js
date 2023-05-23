@@ -1,16 +1,20 @@
 
 
 const Player = (name, symbol) => {
-  const getName = name;
-  const getSymbol = symbol;
+  const getName = () => name;
+  const getSymbol = () => symbol;
   return { getName, getSymbol };
 };
 
 const PlayerX = Player('jeff', 'x');
 const PlayerO = Player('bally', 'o');
 
-console.log(PlayerX.getName); // 'x'
-console.log(PlayerO.getSymbol);
+
+
+console.log(PlayerX.getName()); // 'x'
+console.log(PlayerO.getSymbol());
+
+
 //jeff.sayHello(); // calls the function and logs 'hello!'
 
 
