@@ -1,4 +1,8 @@
+const gameBoard = (() => {
+  const field = document.querySelectorAll(".field");
 
+  return { field };
+})();
 
 const Player = (name, symbol) => {
   const getName = () => name;
@@ -6,18 +10,24 @@ const Player = (name, symbol) => {
   return { getName, getSymbol };
 };
 
-const PlayerX = Player('jeff', 'x');
-const PlayerO = Player('bally', 'o');
+const PlayerX = Player("jeff", "X");
+const PlayerO = Player("bally", "O");
+let nextPlayer = PlayerX;
 
 
+const toggle = (next) => {
+  nextPlayer = (next == PlayerO ? PlayerX : PlayerO);
 
-console.log(PlayerX.getName()); // 'x'
-console.log(PlayerO.getSymbol());
+  return nextPlayer;
+};
 
+gameBoard.field.forEach((item) => {
+  item.addEventListener("click", () => {
+    item.innerHTML = toggle(nextPlayer).getSymbol();
+  });
+});
 
 //jeff.sayHello(); // calls the function and logs 'hello!'
-
-
 
 // const addBook = document.getElementById("add");
 // const library = document.getElementById("library");
@@ -140,7 +150,6 @@ console.log(PlayerO.getSymbol());
 //   addBook.style.display = "block";
 //   showLibrary();
 // });
-
 
 // const donq = new Book("Don Quixote", "Miguel de Cervantes", "314", true);
 // const proust = new Book("In search of lost time", "Marcel Proust", "425", true);

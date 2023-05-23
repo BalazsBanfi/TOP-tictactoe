@@ -77,6 +77,13 @@ main {
 }
 
 .field {
+  font-size: 100px;
+  line-height: 150px;
   background-color: var(--bgButton);
   border: 1px solid black;
+}
+
+.field:hover {
+  opacity: 0.8;
+  cursor: pointer;
 }
