@@ -1,15 +1,18 @@
 const gameBoard = (() => {
   const field = document.querySelectorAll(".field");
+  const storeSteps = ["", "", "", "", "", "", "", "", ""];
 
-
-  return { field };
+  return { field, storeSteps };
 })();
+
+console.log(gameBoard.storeSteps);
 
 const Player = (name, symbol) => {
   const getName = () => name;
   const getSymbol = () => symbol;
   return { getName, getSymbol };
 };
+
 
 const PlayerX = Player("jeff", "X");
 const PlayerO = Player("bally", "O");
@@ -32,6 +35,7 @@ gameBoard.field.forEach((item) => {
     
     if (item.innerHTML !== 'X' && item.innerHTML !==  'O') {
       item.innerHTML = toggle(nextPlayer).getSymbol();
+      gameBoard.storeSteps[item.id - 1] = item.innerHTML;
     }
     else errorMessage("Please, choose an empty square");
     
