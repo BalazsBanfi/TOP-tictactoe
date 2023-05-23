@@ -1,6 +1,7 @@
 const gameBoard = (() => {
   const field = document.querySelectorAll(".field");
 
+
   return { field };
 })();
 
@@ -21,11 +22,23 @@ const toggle = (next) => {
   return nextPlayer;
 };
 
+const errorMessage = (text) => {
+  alert(text);
+};
+
+
 gameBoard.field.forEach((item) => {
   item.addEventListener("click", () => {
-    item.innerHTML = toggle(nextPlayer).getSymbol();
+    
+    if (item.innerHTML !== 'X' && item.innerHTML !==  'O') {
+      item.innerHTML = toggle(nextPlayer).getSymbol();
+    }
+    else errorMessage("Please, choose an empty square");
+    
   });
 });
+
+
 
 //jeff.sayHello(); // calls the function and logs 'hello!'
 
