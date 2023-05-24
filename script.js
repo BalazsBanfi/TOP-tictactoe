@@ -1,11 +1,9 @@
 const gameBoard = (() => {
   const field = document.querySelectorAll(".field");
-  const storeSteps = ["", "", "", "", "", "", "", "", ""];
+  const storedSteps = ["", "", "", "", "", "", "", "", ""];
 
-  return { field, storeSteps };
+  return { field, storedSteps };
 })();
-
-console.log(gameBoard.storeSteps);
 
 const Player = (name, symbol) => {
   const getName = () => name;
@@ -13,14 +11,13 @@ const Player = (name, symbol) => {
   return { getName, getSymbol };
 };
 
-
 const PlayerX = Player("jeff", "X");
 const PlayerO = Player("bally", "O");
+
 let nextPlayer = PlayerX;
 
-
 const toggle = (next) => {
-  nextPlayer = (next == PlayerO ? PlayerX : PlayerO);
+  nextPlayer = next == PlayerO ? PlayerX : PlayerO;
 
   return nextPlayer;
 };
@@ -29,20 +26,33 @@ const errorMessage = (text) => {
   alert(text);
 };
 
+const isWinner = () => {
+  const winningStates = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+    [1, 4, 7],
+    [2, 5, 8],
+    [3, 6, 9],
+    [1, 5, 9],
+    [3, 5, 7]
+  ];
+
+  console.log(winningStates);
+  console.log(gameBoard.storedSteps);
+
+  console.log(nextPlayer.getName(), nextPlayer.getSymbol());
+}
 
 gameBoard.field.forEach((item) => {
   item.addEventListener("click", () => {
-    
-    if (item.innerHTML !== 'X' && item.innerHTML !==  'O') {
+    if (item.innerHTML !== "X" && item.innerHTML !== "O") {
       item.innerHTML = toggle(nextPlayer).getSymbol();
-      gameBoard.storeSteps[item.id - 1] = item.innerHTML;
-    }
-    else errorMessage("Please, choose an empty square");
-    
+      gameBoard.storedSteps[item.id - 1] = item.innerHTML;
+        isWinner();
+    } else errorMessage("Please, choose an empty square");
   });
 });
-
-
 
 //jeff.sayHello(); // calls the function and logs 'hello!'
 
