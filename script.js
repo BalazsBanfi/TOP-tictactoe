@@ -67,6 +67,9 @@ const isWinner = () => {
         `The winner is ${nextPlayer.getName()} ${nextPlayer.getSymbol()}`
       );
       resetBoard();
+    } else if (!gameBoard.storedSteps.includes("") && !exist) {
+      console.log(`Tie!`);
+      resetBoard();
     }
   });
 };
