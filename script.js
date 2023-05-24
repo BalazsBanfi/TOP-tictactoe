@@ -27,6 +27,7 @@ const errorMessage = (text) => {
 };
 
 const isWinner = () => {
+  let winner = false;
   const winningStates = [
     [1, 2, 3],
     [4, 5, 6],
@@ -35,21 +36,33 @@ const isWinner = () => {
     [2, 5, 8],
     [3, 6, 9],
     [1, 5, 9],
-    [3, 5, 7]
+    [3, 5, 7],
   ];
 
-  console.log(winningStates);
-  console.log(gameBoard.storedSteps);
+  let partialRes = gameBoard.storedSteps.reduce((acc, currValue, index) => {
+    if (currValue === nextPlayer.getSymbol()) {
+      acc.push(index + 1);
+    }
+    return acc;
+  }, []);
+  // console.log(partialRes);
 
-  console.log(nextPlayer.getName(), nextPlayer.getSymbol());
-}
+  winningStates.some((array) => {
+    const exist = array.every((value) => {
+      return partialRes.includes(value);
+    });
+    if (exist) {
+      alert(`The winner is ${nextPlayer.getName()} ${nextPlayer.getSymbol()}`);
+    }
+  });
+};
 
 gameBoard.field.forEach((item) => {
   item.addEventListener("click", () => {
     if (item.innerHTML !== "X" && item.innerHTML !== "O") {
       item.innerHTML = toggle(nextPlayer).getSymbol();
       gameBoard.storedSteps[item.id - 1] = item.innerHTML;
-        isWinner();
+      isWinner();
     } else errorMessage("Please, choose an empty square");
   });
 });
