@@ -87,3 +87,17 @@ main {
   opacity: 0.8;
   cursor: pointer;
 }
+
+.errorMessage {
+  color: var(--colorButton);
+  font-size: 2rem;
+}
+
+#reset {
+  padding: var(--padS) var(--padM);
+  background: var(--bgButton);
+  border-radius: 5px;
+  color: var(--colorButton);
+  font-size: 1.5rem;
+
+}

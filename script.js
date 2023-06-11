@@ -1,22 +1,22 @@
 const gameBoard = (() => {
   const field = document.querySelectorAll(".field");
   const storedSteps = ["", "", "", "", "", "", "", "", ""];
-
+  
   return { field, storedSteps };
 })();
 
-const resetBoard = () => {
+const resetBoard = () => {  
   gameBoard.storedSteps = ["", "", "", "", "", "", "", "", ""];
 
   partialRes = [];
 
-  console.log(`storedsteps ${gameBoard.storedSteps}`);
-  console.log(`partialres ${partialRes}`);
   gameBoard.field.forEach((item) => {
     item.innerHTML = "";
   });
-  console.log(`field ${gameBoard.field}`);
 };
+
+const reset = document.querySelector("#reset");
+reset.addEventListener('click', resetBoard);
 
 const Player = (name, symbol) => {
   const getName = () => name;
@@ -34,8 +34,10 @@ const toggle = (next) => {
   return nextPlayer;
 };
 
+const message = document.querySelector('.errorMessage');
+
 const errorMessage = (text) => {
-  alert(text);
+  message.innerHTML = text;
 };
 
 const isWinner = () => {
@@ -63,13 +65,11 @@ const isWinner = () => {
       return partialRes.includes(value);
     });
     if (exist) {
-      console.log(
-        `The winner is ${nextPlayer.getName()} ${nextPlayer.getSymbol()}`
+      errorMessage(
+        `The winner is ${nextPlayer.getName()}, with symbol: ${nextPlayer.getSymbol()}`
       );
-      resetBoard();
     } else if (!gameBoard.storedSteps.includes("") && !exist) {
-      console.log(`Tie!`);
-      resetBoard();
+      errorMessage(`Tie!`);
     }
   });
 };
@@ -77,6 +77,7 @@ const isWinner = () => {
 gameBoard.field.forEach((item) => {
   item.addEventListener("click", () => {
     if (item.innerHTML !== "X" && item.innerHTML !== "O") {
+      errorMessage("&nbsp");
       item.innerHTML = toggle(nextPlayer).getSymbol();
       gameBoard.storedSteps[item.id - 1] = item.innerHTML;
       isWinner();
